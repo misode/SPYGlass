@@ -26,6 +26,9 @@
 			"path": "nbtdoc"
 		},
 		{
+			"path": "visual-editor"
+		},
+		{
 			"path": "vscode-extension"
 		}
 	]

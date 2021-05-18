@@ -7,7 +7,7 @@ const path = require('path')
 /**
  * @type {import('webpack').Configuration}
  */
-module.exports = {
+module.exports = [{
 	target: 'node',
 	node: {
 		__dirname: false,
@@ -51,4 +51,20 @@ module.exports = {
 			},
 		]
 	}
-}
+}, {
+	entry: '../visual-editor/lib/editor.js',
+	output: {
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'editor.js',
+	},
+	devtool: false,
+	module: {
+		rules: [
+			{
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				loader: 'ts-loader',
+			}
+		]
+	}
+}]

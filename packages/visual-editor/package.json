@@ -1,0 +1,25 @@
+{
+  "name": "@spyglassmc/visual-editor",
+  "version": "0.1.0",
+  "main": "lib/editor.js",
+  "types": "lib/editor.d.ts",
+  "author": "Misode",
+  "license": "MIT",
+  "directories": {
+    "test": "test/"
+  },
+  "dependencies": {
+    "preact": "^10.5.13"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SPYGlassMC/SPYGlass.git"
+  },
+  "homepage": "https://spyglassmc.com",
+  "bugs": {
+    "url": "https://github.com/SPYGlassMC/SPYGlass/issues"
+  }
+}

@@ -4,7 +4,7 @@
  * ------------------------------------------------------------------------------------------*/
 
 import path from 'path'
-import type * as vsc from 'vscode'
+import * as vsc from 'vscode'
 import * as lc from 'vscode-languageclient/node'
 
 let client: lc.LanguageClient
@@ -60,6 +60,13 @@ export function activate(context: vsc.ExtensionContext) {
 	client.start()
 
 	client.onReady().then(() => { })
+
+	vsc.commands.registerCommand('datapack.visualEditor', () => {
+		const editor = vsc.window.activeTextEditor
+		if (editor) {
+			createVisualEditor(editor, context)
+		}
+	})
 }
 
 export function deactivate(): Thenable<void> | undefined {
@@ -67,4 +74,93 @@ export function deactivate(): Thenable<void> | undefined {
 		return undefined
 	}
 	return client.stop()
+}
+
+function createVisualEditor(editor: vsc.TextEditor, context: vsc.ExtensionContext) {
+	const panel = vsc.window.createWebviewPanel('datapackVisualEditor', 'Visual Editor', vsc.ViewColumn.Beside, { enableScripts: true })
+
+	panel.webview.onDidReceiveMessage(msg => {
+		switch(msg.type) {
+			case 'ready':
+				panel.webview.postMessage({
+					type: 'update',
+					root: testEditorNode,
+				})
+				break
+		}
+	})
+
+	const asset = (...folders: string[]) => panel.webview.asWebviewUri(
+		vsc.Uri.file(path.join(context.extensionPath, ...folders)))
+	const scriptUri = asset('dist', 'editor.js')
+	const styleUri = asset('resource', 'editor.css')
+	const nonce = getNonce()
+
+	panel.webview.html = `<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${panel.webview.cspSource}; img-src ${panel.webview.cspSource} https:; script-src 'nonce-${nonce}';">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link href="${styleUri}" rel="stylesheet" />
+			<title>Visual Editor</title>
+		</head>
+			<body>
+				<div id="root"></div>
+				<script nonce="${nonce}" src="${scriptUri}"></script>
+			</body>
+		</html>`	
+}
+
+function getNonce() {
+	let text = ''
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	for (let i = 0; i < 32; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length))
+	}
+	return text
+}
+
+const testEditorNode = {
+	type: 'object',
+	properties: [
+		{
+			key: 'Name',
+			value: {
+				type: 'string',
+				value: 'stone',
+			},
+		},
+		{
+			key: 'Value',
+			value: {
+				type: 'object',
+				properties: [
+					{
+						key: 'Nested',
+						value: {
+							type: 'array',
+							items: [
+								{
+									type: 'number',
+									value: 123,
+								},
+								{
+									type: 'string',
+									value: 'foo',
+								},
+							],
+						},
+					},
+					{
+						key: 'Bar',
+						value: {
+							type: 'number',
+							value: 456,
+						},
+					},
+				],
+			},
+		},
+	],
 }

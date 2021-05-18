@@ -46,9 +46,15 @@
 			"locales"
 		]
 	},
+	"visual-editor": {
+		"dependencies": [
+			"core"
+		]
+	},
 	"vscode-extension": {
 		"devDependencies": [
-			"language-server"
+			"language-server",
+			"visual-editor"
 		]
 	}
 }

@@ -3,6 +3,7 @@
     "datapack.commands.evaludateJavaScript.title": "Evaluate JavaScript Snippet",
     "datapack.commands.redownloadData.title": "Re-download Completion Data",
     "datapack.commands.regenerateCache.title": "Regenerate Cache",
+    "datapack.commands.visualEditor.title": "Open Visual Editor",
     "datapack.config.env.cmdVersion": "The version of the command tree. Only major versions are available.",
     "datapack.config.env.dataSource": "The download source of the completion data. We recommend you to choose GitHub, unless raw.githubusercontent.com is blocked in your country/region.",
     "datapack.config.env.dataVersion": "The version of the completion data, including registries, block definitions, and nbtdoc. Should be an identity in the [version manifest](https://launchermeta.mojang.com/mc/game/version_manifest.json) which was released after `19w40a`. Apart from a version identity, you can also input `Latest release` or `Latest snapshot` here (case-insensitive).",
