@@ -76,6 +76,8 @@ export function macro(): core.Parser<MacroNode> {
 				})
 				start = src.cursor
 				hasMacroKeys = true
+			} else if (src.peek() === '$') {
+				src.skip()
 			} else {
 				// No more macro keys, add the remaining gap
 				ans.children.push({
