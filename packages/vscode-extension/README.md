@@ -49,7 +49,7 @@ You can find all the references of objectives, tags, data storages, functions, a
 ## Commands <small>[[docs](https://spyglassmc.com/user/commands)]</small>
 
 ### Reset project cache
-Spyglass uses a cache to speedup the process of validating, finding references/definitions, document links, etc. However the cache may become outdated because of various reasons, which could lead to strange behaviors. You can use the `Spyglass: Reset Project Cache` command to regenerate the cache manually. You can open the command oromt ysung Ctrl+Shift+P (or other configured hotkey).
+Spyglass uses a cache to speedup the process of validating, finding references/definitions, document links, etc. However the cache may become outdated because of various reasons, which could lead to strange behaviors. You can use the `Spyglass: Reset Project Cache` command to regenerate the cache manually. You can open the command prompt using Ctrl+Shift+P (or other configured hotkey).
 
 ### Open cache folder
 If you are still experiencing problems after running the above command, you can navigate to the cache folder by using the `Spyglass: Open Cache Folder` command and wiping the folder. This removes the downloaded vanilla data pack, project caches, etc.
